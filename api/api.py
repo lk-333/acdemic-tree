@@ -39,6 +39,7 @@ def check_user():
     data=request.get_json()
     print(f"前端发给我的数据:{data}")
     status=db.check_user(user_name=data["username"],password=data['password'],identity=data['identity'])
+    print(status)
     return jsonify({'status':status})
     
 if __name__=="__main__":   

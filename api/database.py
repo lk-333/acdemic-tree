@@ -15,7 +15,7 @@ class Database():
             # 用户名
             user='root',
             # 密码
-            password='123456',
+            password='password',
             # 数据库
             database='academic_rel_tree',
             # 自动 commit
@@ -79,16 +79,19 @@ class Database():
         user_exist=self.exec(f"""
                   SELECT COUNT(*) FROM user WHERE user_name = '{user_name}' AND identity='{identity}'
                   """)
-        print(f"user_exist={user_exist}")
-        if user_exist[0][0]==0:
+        user_exist=int(user_exist[0][0])
+        if user_exist==0:
             return -1
+        
         password_right=self.exec(f"""
                                  SELECT COUNT(*) FROM user WHERE user_name = '{user_name}' AND password='{password}' AND identity='{identity}'
                                  """)
-        print(f"password_right={password_right}")
-        if password_right[0][0]==1:
+        password_right=int(password_right[0][0])
+        print("password_right",password_right)
+        if password_right==1:
             return 1
         elif password_right==0:
+            print("fuck")
             return 0
         
     
