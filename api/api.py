@@ -37,10 +37,15 @@ def calculate():
 @app.route('/check_user',methods=['POST'])
 def check_user():
     data=request.get_json()
-    print(f"前端发给我的数据:{data}")
     status=db.check_user(user_name=data["username"],password=data['password'],identity=data['identity'])
-    print(status)
     return jsonify({'status':status})
+
+@app.route("register_user",methods=['POST']) 
+def register_user():
+    data=request.get_json()
+    status=db.add_user(user_name=data["username"],password=data['password'],identity=data['identity'])
+    return jsonify({'status':status})
+    
     
 if __name__=="__main__":   
     def run():

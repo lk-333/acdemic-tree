@@ -65,12 +65,21 @@ class Database():
     def del_person(self):
         pass
     
+    # 0 用户名已存在
+    # 1 注册成功
     def add_user(self,user_name,password,identity):
+        user_exist=self.exec(f"""
+                  SELECT COUNT(*) FROM user WHERE user_name = '{user_name}' AND identity='{identity}'
+                  """)
+        user_exist=int(user_exist[0][0])
+        if user_exist==1:
+            return 0
         self.exec(f"""
                     insert 
                     into user
                     values ('{user_name}','{password}','{identity}')
                     """)
+        return 1
     
     # -1:用户不存在
     # 0：密码错误
