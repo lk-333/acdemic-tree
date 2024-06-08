@@ -5,16 +5,31 @@ import '../styles.css';
 const Register = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [identity, setIdentity] = useState('student');  // 添加用户身份状态，默认为 'student'
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-        // 简单存储用户名和密码到 localStorage
-        if (username && password) {
-            localStorage.setItem('username', username);
-            localStorage.setItem('password', password);
-            navigate('/login');
+        if (username && password && identity) {
+            try {
+                const response = await fetch('/register_user', {  // 假设后端路由为 '/register_user'
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password, identity }),
+                });
+                const data = await response.json();
+                if (data.status === 1) {
+                    navigate('/login');
+                } else {
+                    setError('注册失败，请重试');
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                setError('服务器错误');
+            }
         } else {
             setError('请填写所有字段');
         }
@@ -41,6 +56,14 @@ const Register = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
+                </div>
+                <div>
+                    <label>身份:</label>
+                    <select value={identity} onChange={(e) => setIdentity(e.target.value)}>
+                        <option value="student">学生</option>
+                        <option value="teacher">老师</option>
+                        <option value="admin">管理员</option>
+                    </select>
                 </div>
                 {error && <p className="error">{error}</p>}
                 <button type="submit">注册</button>
