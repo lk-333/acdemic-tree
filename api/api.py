@@ -6,8 +6,8 @@ import queue
 import time
 
 # to_pre_queue = queue.Queue() 
-# from_pre_quque = queue.Queue()
-db=Database()
+# from_pre_quque = queue.Queue()  
+    
 
 
 
@@ -23,6 +23,7 @@ def run_back_thread():
     return th
 
 app = Flask(__name__)
+db=Database()
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
@@ -35,18 +36,12 @@ def calculate():
 
 @app.route('/check_user',methods=['POST'])
 def check_user():
-    print("mother fucker")
     data=request.get_json()
     print(f"前端发给我的数据:{data}")
-    # username,password,identity
     status=db.check_user(user_name=data["username"],password=data['password'],identity=data['identity'])
-
     return jsonify({'status':status})
     
-if __name__=="__main__":
-
-
-            
+if __name__=="__main__":   
     def run():
         app.run(debug=True)
     

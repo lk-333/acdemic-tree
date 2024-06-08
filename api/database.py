@@ -1,6 +1,7 @@
 import pymysql
 import hashlib
 import time
+import threading
 
 max_id=1000
 
@@ -14,22 +15,25 @@ class Database():
             # 用户名
             user='root',
             # 密码
-            password='123456',
+            password='password',
             # 数据库
             database='academic_rel_tree',
             # 自动 commit
             autocommit=True)
         self.cursor = self.db.cursor()
+        self.lock = threading.Lock()  # 创建一个锁实例
     
     def exec(self,order:str):
-        try:
-            self.cursor.execute(order)
-            results = self.cursor.fetchall()
-        except Exception as e:
-            print("Database process error")
-            print(e)
-            return tuple(())
-        return results
+        with self.lock: 
+            try:
+                
+                self.cursor.execute(order)
+                results = self.cursor.fetchall()
+            except Exception as e:
+                print("Database process error")
+                print(e)
+                return tuple(())
+            return results
 
     def add_person(self,name,profile):
         person_id=int(hashlib.sha256((name+profile).encode()).hexdigest(),16)%int(max_id)
@@ -75,12 +79,14 @@ class Database():
         user_exist=self.exec(f"""
                   SELECT COUNT(*) FROM user WHERE user_name = '{user_name}' AND identity='{identity}'
                   """)
-        if user_exist==0:
+        print(f"user_exist={user_exist}")
+        if user_exist[0][0]==0:
             return -1
         password_right=self.exec(f"""
                                  SELECT COUNT(*) FROM user WHERE user_name = '{user_name}' AND password='{password}' AND identity='{identity}'
                                  """)
-        if password_right==1:
+        print(f"password_right={password_right}")
+        if password_right[0][0]==1:
             return 1
         elif password_right==0:
             return 0
