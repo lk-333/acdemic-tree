@@ -15,7 +15,7 @@ class Database():
             # 用户名
             user='root',
             # 密码
-            password='password',
+            password='123456',
             # 数据库
             database='academic_rel_tree',
             # 自动 commit

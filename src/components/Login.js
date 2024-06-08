@@ -1,34 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 import '../styles.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [identity, setIdentity] = useState('');
-
+    const [identity, setIdentity] = useState('admin');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/check_user', { username, password,identity });
-            const { status } = response.data;
-            if (status === 1) {
+            const response = await fetch('/check_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password, identity }),
+            });
+
+
+            const data = await response.json();
+
+            if (data.status === 1) {
                 navigate('/');
-            }
-            else if(status === -1)
-            {
-            //     用户不存在
-            }
-            else if(response.status === 0)
-            {
-                //     密码错误
+            } else if (data.status === -1) {
+                setError('用户不存在');
+            } else if (data.status === 0) {
+                setError('密码错误');
             }
         } catch (err) {
-            setError('密码错误');
+            console.error('Error:', err);
+            setError('服务器错误');
         }
     };
 
