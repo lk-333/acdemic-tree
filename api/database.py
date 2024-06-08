@@ -2,6 +2,7 @@ import pymysql
 import hashlib
 import time
 import threading
+from args import args
 
 max_id=1000
 
@@ -13,9 +14,9 @@ class Database():
             # 端口
             port=3306,
             # 用户名
-            user='root',
+            user=args["db_user"],
             # 密码
-            password='password',
+            password=args["db_password"],
             # 数据库
             database='academic_rel_tree',
             # 自动 commit

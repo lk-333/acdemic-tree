@@ -4,11 +4,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import queue
 import time
+from args import args
 
 # to_pre_queue = queue.Queue() 
 # from_pre_quque = queue.Queue()  
     
-
 
 
 
@@ -40,7 +40,7 @@ def check_user():
     status=db.check_user(user_name=data["username"],password=data['password'],identity=data['identity'])
     return jsonify({'status':status})
 
-@app.route("register_user",methods=['POST']) 
+@app.route("/register_user",methods=['POST']) 
 def register_user():
     data=request.get_json()
     status=db.add_user(user_name=data["username"],password=data['password'],identity=data['identity'])
