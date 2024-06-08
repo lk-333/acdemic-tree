@@ -4,7 +4,8 @@ import configparser
 config = configparser.ConfigParser()
 
 # 读取配置文件
-config.read('config.conf')
+config.read('../config.conf')
+
 
 args={}
 args["db_user"]=config.get('Database', 'db_user')
