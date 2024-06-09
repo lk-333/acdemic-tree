@@ -12,16 +12,16 @@ import numpy as np
 # to_pre_queue = queue.Queue() 
 # from_pre_quque = queue.Queue()  
     
-def locate_nodes(me_node: Node):
+def locate_nodes(me_node:Node):
     nodes=[]
     links=[]
     
-    def recursion(ments:List[List[Node, int]],x,y,flag,depth,fa_name):
+    def recursion(ments,x,y,flag,depth,fa_name):
         N=len(ments)
         if N%2==1:
-            x_lst=np.array(range(-int((N-1)/2),int((N+1)/2)+1)*100)
+            x_lst=x+np.array(range(-int((N-1)/2),int((N+1)/2)+1))*100
         else:
-            x_lst=np.array(range(-(int(N/2)),int(N/2)))*100+50
+            x_lst=x+np.array(range(-(int(N/2)),int(N/2)))*100+50
             
         if flag==1:
             y_now=y-100
@@ -34,8 +34,8 @@ def locate_nodes(me_node: Node):
             s=db.get_user_info(node_now.user_id)
             tmp_node_dic["real_name"]=s[4]
             tmp_node_dic["user_id"]=node_now.user_id
-            tmp_node_dic["x"]=x_now
-            tmp_node_dic["y"]=y_now
+            tmp_node_dic["x"]=int(x_now)
+            tmp_node_dic["y"]=int(y_now)
             nodes.append(tmp_node_dic)
             
             tmp_link_dic={}
@@ -49,9 +49,9 @@ def locate_nodes(me_node: Node):
                 
             if depth>0:
                 if flag==1:
-                    recursion(node_now.mentors,x_now,y_now,flag,depth-1)
+                    recursion(node_now.mentors,x_now,y_now,flag,depth-1,tmp_node_dic["real_name"])
                 else:
-                    recursion(node_now.mentees,x_now,y_now,flag,depth-1)
+                    recursion(node_now.mentees,x_now,y_now,flag,depth-1,tmp_node_dic["real_name"])
                        
     me_x=500
     me_y=300
@@ -124,7 +124,8 @@ def search_user():
 def bulid_tree():
     data=request.get_json()
     print(int(data['id']))
-    tree=locate_nodes(atree.users[int(data['id'])])
+    user_node=atree.users[int(data['id'])]
+    tree=locate_nodes(user_node)
     return jsonify(tree)
 
 if __name__=="__main__":   
