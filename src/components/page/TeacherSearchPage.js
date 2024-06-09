@@ -25,8 +25,12 @@ const TeacherSearchPage = () => {
 
             if (data.status === 1) {
                 // 假设后端返回了成功的响应，跳转到创建树的页面
-                navigate('/create-tree');
+                navigate('/create-tree?id=111');
+
+
+
             } else {
+                alert('搜索失败');
                 console.error('搜索失败');
             }
         } catch (error) {

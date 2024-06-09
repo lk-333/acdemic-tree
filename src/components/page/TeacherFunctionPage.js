@@ -88,11 +88,14 @@ const TeacherFunctionPage = () => {
     };
 
     return (
-        <div className="teacher-function-page">
-            <div className="buttons-container">
-                <h1>教师功能页面</h1>
-                <button onClick={handleViewApplications}>查看申请</button>
-                <button onClick={handleOpenModal}>发送申请</button>
+        <div className="teacher-function-container">
+            <video autoPlay muted loop className="video-background">
+                <source src="/videos/snow.mp4" type="video/mp4"/>
+            </video>
+            <div className="content-wrapper">
+                <h1 className="title">教师功能页面</h1>
+                <button onClick={handleViewApplications} className="function-button">查看申请</button>
+                <button onClick={handleOpenModal} className="function-button">发送申请</button>
                 {showModal && (
                     <div className="modal">
                         <div className="modal-content">
@@ -126,8 +129,7 @@ const TeacherFunctionPage = () => {
                         </div>
                     </div>
                 )}
-
-                <button onClick={handleOpenEditModal}>修改个人信息</button>
+                <button onClick={handleOpenEditModal} className="function-button">修改个人信息</button>
                 {showEditModal && (
                     <div className="modal">
                         <div className="modal-content">
@@ -155,8 +157,7 @@ const TeacherFunctionPage = () => {
                         </div>
                     </div>
                 )}
-
-                <button onClick={handleBack}>返回</button>
+                <button onClick={handleBack} className="function-button">返回</button>
                 <button className="logout-button" onClick={handleLogout}>退出登录</button>
             </div>
         </div>
