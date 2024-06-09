@@ -4,6 +4,7 @@ import hashlib
 import time
 from typing import Dict,Tuple
 import numpy as np
+import json
 
 max_id=1000
 
@@ -149,7 +150,22 @@ class AcdemicTree():
             return 1
         else:
             return 0
-    
+    # 查询未处理的申请条目
+    def get_processed_applications(self, username: str) -> List[Dict[str, str]]:
+        processed_apps = self.db.exec(f"""
+            SELECT applicant_name, item_id, creation_time FROM application 
+            WHERE respondent_name = '{username}' AND is_processed = FALSE
+        """)
+        results = []
+        for app in processed_apps:
+            result = {
+                "applicantName": app[0],
+                "applicantTime": app[2].strftime("%Y-%m-%d %H:%M:%S"),# 将 datetime 转换为字符串
+                "item_id": app[1]
+            }
+            results.append(result)
+        return results
+
     def locate_nodes(self,me_node:Node):
         nodes=[]
         links=[]
@@ -212,4 +228,12 @@ class AcdemicTree():
 
 
     
-        
+# 实例化数据库类
+db = Database()
+
+# 创建 AcdemicTree 实例
+academic_tree = AcdemicTree(db)
+
+# 测试获取处理完成的申请条目
+processed_applications = academic_tree.get_processed_applications('品爷')
+print(json.dumps(processed_applications, indent=2, ensure_ascii=False))

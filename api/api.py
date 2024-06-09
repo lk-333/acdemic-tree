@@ -126,10 +126,11 @@ def get_applications():
     s=atree.get_processed_applications(username = data['username'])
     return jsonify({'applications':s})
 
-@app.route('/bulid_tree')
+@app.route('/bulid_tree',methods=['POST'])
 def bulid_tree():
-    data=request.get_json()
-    tree=locate_nodes(atree.users[data["id"]])
+    data = request.get_json()
+    user_node=atree.users[int(data['id'])]
+    tree=atree.locate_nodes(user_node)
     return jsonify(tree)
 
 
