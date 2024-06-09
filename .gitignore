@@ -25,3 +25,5 @@ yarn-error.log*
 config.conf
 /public/videos
 /donghua
+
+/api/__pycache__
