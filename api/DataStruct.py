@@ -166,6 +166,34 @@ class AcdemicTree():
             results.append(result)
         return results
 
+    # 处理申请信息
+    def process_application(self, item_id: int, result: str) -> Tuple[int, str]:
+        application = self.db.exec(f"""
+            SELECT applicant_name, respondent_name FROM application 
+            WHERE item_id = {item_id}
+        """)
+        if not application:
+            return 0, f"Error: application with item_id {item_id} does not exist."
+
+        applicant_name, respondent_name = application[0]
+
+        # 更新 application 表中的 is_processed 和 process_result
+        self.db.exec(f"""
+            UPDATE application 
+            SET is_processed = TRUE, process_result = '{result}'
+            WHERE item_id = {item_id}
+        """)
+
+        if result == "Yes":
+            # 根据 applicant_name 和 respondent_name 获取对应的 user_id
+            applicant_id = self.db.exec(f"SELECT user_id FROM user WHERE user_name = '{applicant_name}'")[0][0]
+            respondent_id = self.db.exec(f"SELECT user_id FROM user WHERE user_name = '{respondent_name}'")[0][0]
+
+            # 调用 add_mentorship 方法
+            self.add_mentorship(mentor_id=respondent_id, mentee_id=applicant_id)
+
+        return 1, f"Application with item_id {item_id} processed successfully with result {result}."
+
     def locate_nodes(self,me_node:Node):
         nodes=[]
         links=[]
@@ -226,14 +254,3 @@ class AcdemicTree():
         data["links"]=links
         return data
 
-
-    
-# 实例化数据库类
-db = Database()
-
-# 创建 AcdemicTree 实例
-academic_tree = AcdemicTree(db)
-
-# 测试获取处理完成的申请条目
-processed_applications = academic_tree.get_processed_applications('品爷')
-print(json.dumps(processed_applications, indent=2, ensure_ascii=False))
