@@ -114,10 +114,19 @@ def update_profile():
     return jsonify({'status':status})
 
 
-@app.route('/build_tree')
-def build_tree():
-    data=request.get_json()    
-    tree=locate_nodes(atree.users[data["id"]])
+@app.route("/search_user",methods=['POST'])
+def search_user():
+    data=request.get_json()
+    status=atree.check_username_exists(username = data['name'])
+    return jsonify({'status':status})
+
+@app.route('/bulid_tree')
+def bulid_tree():
+    data=request.get_json()
+    x_me=500
+    y_me=300
+    
+    tree=locate_nodes(atree[data["id"]])
     return jsonify(tree)
 
 if __name__=="__main__":   
