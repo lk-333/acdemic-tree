@@ -113,6 +113,13 @@ def update_profile():
     status,s=atree.update_personal_info(username = data['username'], realName = data['realName'], homepage = data['homepage'])
     return jsonify({'status':status})
 
+
+@app.route("/search_user",methods=['POST'])
+def search_user():
+    data=request.get_json()
+    status=atree.check_username_exists(username = data['name'])
+    return jsonify({'status':status})
+
 @app.route('/bulid_tree')
 def bulid_tree():
     data=request.get_json()
