@@ -1,18 +1,9 @@
-/* MyTreeComponent.css */
-#treeWrapper {
+.svg-container {
+    width: 1000px;
+    height: 600px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* 使树形图填满视口高度 */
-}
-
-.node {
-    fill: #fff;
-    stroke: #000;
-    cursor: pointer;
-}
-
-.link {
-    fill: none;
-    stroke: #ccc;
+    border: 1px solid #ccc; /* 可选：给容器添加边框以便于观察 */
 }

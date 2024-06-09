@@ -19,9 +19,9 @@ const root = createRoot(container);
 // 使用 createRoot 进行渲染
 root.render(
     <React.StrictMode>
+
         <Router>
             <Routes>
-
                 <Route path="/teacher-function" element={<TeacherFunctionPage />} /> {/* 添加 TeacherFunctionPage 路由 */}
                 <Route path="/student-function" element={<StudentFunctionPage />} />
                 <Route path="/search-tree-teacher" element={<TeacherSearchPage />} />
