@@ -41,7 +41,7 @@ class Database():
     def register(self,user_id,user_name,password,identity):
         self.exec(f"""
                     insert
-                    into user (user_id,user_name,password)
+                    into user (user_id,user_name,password,identity)
                     values ({user_id},'{user_name}','{password}','{identity}')
                 """)
     
