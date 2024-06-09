@@ -120,11 +120,19 @@ def search_user():
     status=atree.check_username_exists(username = data['name'])
     return jsonify({'status':status})
 
+@app.route("/get-applications",methods=['POST'])
+def get_applications():
+    data=request.get_json()
+    s=atree.get_processed_applications(username = data['username'])
+    return jsonify({'applications':s})
+
 @app.route('/bulid_tree')
 def bulid_tree():
     data=request.get_json()
     tree=locate_nodes(atree.users[data["id"]])
     return jsonify(tree)
+
+
 
 if __name__=="__main__":   
     def run():

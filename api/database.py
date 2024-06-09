@@ -97,8 +97,8 @@ class Database():
 
         if int(applicant_check[0][0]) > 0 and int(respondent_check[0][0]) > 0:
             self.exec(f"""
-                INSERT INTO application (applicant_name, respondent_name, creation_time)
-                VALUES ('{applicant_name}', '{respondent_name}', '{creation_time}')
+                INSERT INTO application (applicant_name, respondent_name, creation_time, is_processed, process_result)
+                VALUES ('{applicant_name}', '{respondent_name}', '{creation_time}', FALSE, '')
             """)
             return 0, f"Inserted application for applicant_name {applicant_name} and respondent_name {respondent_name} successfully."
         else:
