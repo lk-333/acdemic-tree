@@ -104,3 +104,13 @@ class Database():
         else:
             return 1, f"Error: applicant_name {applicant_name} or respondent_name {respondent_name} does not exist in user table."
 
+    #根据id查询user表中的一列信息
+    def get_user_info(self, user_id):
+        user_info = self.exec(f"""
+            SELECT * FROM user WHERE user_id = {user_id}
+        """)
+        if user_info:
+            return user_info[0]
+        else:
+            return f"Error: User with user_id {user_id} does not exist."
+

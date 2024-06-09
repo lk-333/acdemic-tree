@@ -46,6 +46,12 @@ def send_application():
     status,s=atree.apply_for_mentorship(applicant_name=data["yourName"],respondent_name=data['otherName'])
     return jsonify({'status':status})
 
+@app.route("/update-profile",methods=['POST'])
+def update_profile():
+    data=request.get_json()
+    status,s=atree.update_personal_info(username = data['username'], realName = data['realName'], homepage = data['homepage'])
+    return jsonify({'status':status})
+
     
 if __name__=="__main__":   
     def run():

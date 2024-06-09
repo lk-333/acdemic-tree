@@ -128,6 +128,20 @@ class AcdemicTree():
         self.db.insert_application_data(applicant_name, respondent_name, creation_time)
         return 1, f"Application submitted successfully for applicant_name {applicant_name} and respondent_name {respondent_name}."
 
+    # 修改个人信息
+    def update_personal_info(self, username: str, realName: str, homepage: str) -> Tuple[int, str]:
+        user_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{username}'")
+
+        if int(user_check[0][0]) == 0:
+            return 0, f"Error: username {username} does not exist."
+
+        self.db.exec(f"""
+            UPDATE user 
+            SET real_name = '{realName}', profile_link = '{homepage}'
+            WHERE user_name = '{username}'
+        """)
+        return 1, f"User {username} information updated successfully."
+
    
 
     
