@@ -41,14 +41,14 @@ class Database():
     def register(self,user_id,user_name,password,identity):
         self.exec(f"""
                     insert
-                    into person (user_id,user_name,password)
+                    into user (user_id,user_name,password)
                     values ({user_id},'{user_name}','{password}','{identity}')
                 """)
     
     def add_user_msg(self,real_name,profile_link):
         self.exec(f"""
                     insert
-                    into person (real_name,profile_link)
+                    into user (real_name,profile_link)
                     values ('{real_name}','{profile_link}',)
                   """)
         
