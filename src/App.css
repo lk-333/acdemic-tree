@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+
+/*界面按钮*/
+.margin-right {
+  margin-right: 8px; /* 可以调整间距的大小 */
+}

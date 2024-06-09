@@ -1,0 +1,18 @@
+/* MyTreeComponent.css */
+#treeWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 使树形图填满视口高度 */
+}
+
+.node {
+    fill: #fff;
+    stroke: #000;
+    cursor: pointer;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+}

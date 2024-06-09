@@ -1,0 +1,40 @@
+/* SearchPage.css */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+}
+
+.search-input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.search-button {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.teacher-function-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #aa00ff;
+    color: white;
+    border: none;
+}
