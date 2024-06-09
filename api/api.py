@@ -40,6 +40,11 @@ def register_user():
     status=atree.register(user_name=data["username"],password=data['password'],identity=data['identity'])
     return jsonify({'status':status})
 
+@app.route("send-application",methods=['POST'])
+def register_user():
+    data=request.get_json()
+    status,s=atree.apply_for_mentorship(applicant_name=data["yourName"],respondent_name=data['otherName'])
+    return jsonify({'status':status})
 
     
 if __name__=="__main__":   
