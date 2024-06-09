@@ -143,7 +143,7 @@ class AcdemicTree():
         return 1, f"User {username} information updated successfully."
 
     def check_username_exists(self, username: str) -> int:
-        user_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{username}'")
+        user_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE real_name = '{username}'")
         if int(user_check[0][0]) > 0:
             return 1
         else:
