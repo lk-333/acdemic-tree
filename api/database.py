@@ -12,7 +12,7 @@ class Database():
             # 主机名
             host=args["db_host"],
             # 端口
-            port=args["db_port"],
+            port=int(args["db_port"]),
             # 用户名
             user=args["db_user"],
             # 密码
