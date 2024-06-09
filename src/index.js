@@ -11,6 +11,7 @@ import SearchPage from "./components/page/SearchPage";
 import TeacherSearchPage from "./components/page/TeacherSearchPage";
 import StudentSearchPage from "./components/page/StudentSearchPage";
 import StudentFunctionPage from "./components/page/StudentFunctionPage";
+import ViewApplicationPage from "./components/page/ViewApplicationPage";
 
 // 获取 root 元素
 const container = document.getElementById('root');
@@ -22,6 +23,8 @@ root.render(
 
         <Router>
             <Routes>
+
+                <Route path="/view-applications" element={<ViewApplicationPage />} />
                 <Route path="/teacher-function" element={<TeacherFunctionPage />} /> {/* 添加 TeacherFunctionPage 路由 */}
                 <Route path="/student-function" element={<StudentFunctionPage />} />
                 <Route path="/search-tree-teacher" element={<TeacherSearchPage />} />

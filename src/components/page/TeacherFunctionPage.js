@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './TeacherFunctionPage.css';
 
 const TeacherFunctionPage = () => {
@@ -14,8 +14,12 @@ const TeacherFunctionPage = () => {
     const [realName, setRealName] = useState('');
     const [homepage, setHomepage] = useState('');
 
+    const location = useLocation();
+    const { Username } = location.state || {};
+
+
     const handleViewApplications = () => {
-        navigate('/view-applications');
+        navigate('/view-applications', { state: { Username } });
     };
 
     const handleBack = () => {
@@ -96,6 +100,9 @@ const TeacherFunctionPage = () => {
                 <h1 className="title">教师功能页面</h1>
                 <button onClick={handleViewApplications} className="function-button">查看申请</button>
                 <button onClick={handleOpenModal} className="function-button">发送申请</button>
+                <button onClick={handleOpenEditModal} className="function-button">修改个人信息</button>
+                <button onClick={handleBack} className="function-button">返回</button>
+                <button className="logout-button" onClick={handleLogout}>退出登录</button>
                 {showModal && (
                     <div className="modal">
                         <div className="modal-content">
@@ -129,7 +136,6 @@ const TeacherFunctionPage = () => {
                         </div>
                     </div>
                 )}
-                <button onClick={handleOpenEditModal} className="function-button">修改个人信息</button>
                 {showEditModal && (
                     <div className="modal">
                         <div className="modal-content">
@@ -157,8 +163,6 @@ const TeacherFunctionPage = () => {
                         </div>
                     </div>
                 )}
-                <button onClick={handleBack} className="function-button">返回</button>
-                <button className="logout-button" onClick={handleLogout}>退出登录</button>
             </div>
         </div>
     );

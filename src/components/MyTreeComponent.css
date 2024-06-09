@@ -1,9 +1,21 @@
 .svg-container {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     height: 600px;
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1px solid #ccc; /* 可选：给容器添加边框以便于观察 */
+    background-color: #f9f9f9; /* 添加背景颜色 */
+    border-radius: 8px; /* 添加圆角 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
 }
+
+
+
+
+text:hover {
+    fill: #0000ff; /* 鼠标悬停时改变文本颜色为蓝色 */
+}
+

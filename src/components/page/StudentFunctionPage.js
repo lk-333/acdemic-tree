@@ -14,6 +14,8 @@ const StudentFunctionPage = () => {
     const [realName, setRealName] = useState('');
     const [homepage, setHomepage] = useState('');
 
+
+
     const handleOpenModal = () => {
         setShowModal(true);
     };

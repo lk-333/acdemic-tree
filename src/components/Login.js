@@ -1,3 +1,4 @@
+// Login.js
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './login.css';
@@ -23,16 +24,19 @@ const Login = () => {
             const data = await response.json();
 
             if (data.status === 1) {
-                // 根据身份跳转到不同页面
+                // 将username赋值给Username
+                const Username = username;
+
+                // 根据身份跳转到不同页面并传递Username
                 switch(identity) {
                     case 'student':
-                        navigate('/search-tree-student');
+                        navigate('/search-tree-student', { state: { Username } });
                         break;
                     case 'teacher':
-                        navigate('/search-tree-teacher');
+                        navigate('/search-tree-teacher', { state: { Username } });
                         break;
                     case 'admin':
-                        navigate('/admin-dashboard');
+                        navigate('/admin-dashboard', { state: { Username } });
                         break;
                     default:
                         navigate('/');

@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import './SearchPage.css';  // 引入样式文件
 
 const StudentSearchPage = () => {
     const [name, setName] = useState('');
     const navigate = useNavigate();
+
+    const location = useLocation();
+    const { username } = location.state || {};
+
 
     const handleLogout = () => {
         navigate('/login');
@@ -35,7 +39,7 @@ const StudentSearchPage = () => {
     };
 
     const handleStudentFunctionClick = () => {
-        navigate('/student-function');
+        navigate('/student-function', { state: { username } });
     };
 
     return (
