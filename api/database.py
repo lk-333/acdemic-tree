@@ -10,15 +10,15 @@ class Database():
     def __init__(self):
         self.db=pymysql.connect(
             # 主机名
-            host='localhost',
+            host=args["db_host"],
             # 端口
-            port=3306,
+            port=args["db_port"],
             # 用户名
             user=args["db_user"],
             # 密码
             password=args["db_password"],
             # 数据库
-            database='academic_rel_tree',
+            database=args['db_database'],
             # 自动 commit
             autocommit=True)
         self.cursor = self.db.cursor()
