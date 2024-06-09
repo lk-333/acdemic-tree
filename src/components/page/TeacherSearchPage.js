@@ -1,4 +1,3 @@
-// SearchPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SearchPage.css';  // 引入样式文件
@@ -6,6 +5,10 @@ import './SearchPage.css';  // 引入样式文件
 const TeacherSearchPage = () => {
     const [name, setName] = useState('');
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate('/login');
+    };
 
     const handleSearch = async () => {
         // 发送请求到后端，你可以使用 fetch 或 axios 发送请求
@@ -35,20 +38,25 @@ const TeacherSearchPage = () => {
         navigate('/teacher-function');
     };
 
-
     return (
         <div className="search-container">
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="请输入名字"
-                className="search-input"
-            />
+            <video autoPlay muted loop className="video-background">
+                <source src="/videos/sea.mp4" type="video/mp4"/>
+            </video>
+            <div className="content-wrapper">
+                <h1 className="title">学术师承树</h1>
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="请输入名字"
+                    className="search-input"
+                />
 
-            <button onClick={handleSearch} className="search-button">搜索</button>
-            <button onClick={handleTeacherFunctionClick} className="teacher-function-button">教师功能</button>
-
+                <button onClick={handleSearch} className="search-button">搜索</button>
+                <button onClick={handleTeacherFunctionClick} className="teacher-function-button">教师功能</button>
+                <button className="logout-button" onClick={handleLogout}>退出登录</button>
+            </div>
         </div>
     );
 };

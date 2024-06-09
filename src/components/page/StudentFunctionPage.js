@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 import './StudentFunctionPage.css';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const StudentFunctionPage = () => {
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [yourName, setYourName] = useState('');
     const [otherName, setOtherName] = useState('');
     const [yourRole, setYourRole] = useState('');
     const [otherRole, setOtherRole] = useState('');
-
+    const [username, setUsername] = useState('');
+    const [realName, setRealName] = useState('');
+    const [homepage, setHomepage] = useState('');
 
     const handleOpenModal = () => {
         setShowModal(true);
+    };
+
+    const handleOpenEditModal = () => {
+        setShowEditModal(true);
     };
 
     const handleBack = () => {
         navigate('/search-tree-student');
     };
 
+    const handleLogout = () => {
+        navigate('/login');
+    };
+
     const handleCloseModal = () => {
         setShowModal(false);
+        setShowEditModal(false);
     };
 
     const handleSubmit = async () => {
@@ -45,6 +57,30 @@ const StudentFunctionPage = () => {
             console.error('Error:', error);
         }
         setShowModal(false); // 关闭模态窗口
+    };
+
+    const handleEditSubmit = async () => {
+        try {
+            const response = await fetch('/update-profile', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, realName, homepage })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 1) {
+                alert("个人信息已更新");
+            } else {
+                alert("更新失败");
+                console.error('更新失败');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        setShowEditModal(false); // 关闭模态窗口
     };
 
     return (
@@ -86,7 +122,38 @@ const StudentFunctionPage = () => {
                         </div>
                     </div>
                 )}
+
+                <button onClick={handleOpenEditModal}>修改个人信息</button>
+                {showEditModal && (
+                    <div className="modal">
+                        <div className="modal-content">
+                            <span className="close" onClick={handleCloseModal}>&times;</span>
+                            <h2>修改个人信息</h2>
+                            <input
+                                type="text"
+                                placeholder="请输入你的用户名"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="请输入你的真实姓名"
+                                value={realName}
+                                onChange={(e) => setRealName(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="请输入你的主页地址"
+                                value={homepage}
+                                onChange={(e) => setHomepage(e.target.value)}
+                            />
+                            <button onClick={handleEditSubmit}>提交</button>
+                        </div>
+                    </div>
+                )}
+
                 <button onClick={handleBack}>返回</button>
+                <button className="logout-button" onClick={handleLogout}>退出登录</button>
             </div>
         </div>
     );

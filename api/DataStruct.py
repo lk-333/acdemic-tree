@@ -108,45 +108,26 @@ class AcdemicTree():
     # 处理申请
     # 如果申请成功，则返回0，并在数据库中添加一个申请条目
     # 如果申请失败，则返回1，并返回报错信息
-    def apply_for_mentorship(self, applicant_id, respondent_id, creation_time=None) -> Tuple[int, str]:
+    def apply_for_mentorship(self, applicant_name, respondent_name, creation_time=None) -> Tuple[int, str]:
         # 检查申请的合法性
-        if applicant_id == respondent_id:
-            return 1, f"Error: applicant_id {applicant_id} and respondent_id {respondent_id} cannot be the same."
+        if applicant_name == respondent_name:
+            return 1, f"Error: applicant_name {applicant_name} and respondent_name {respondent_name} cannot be the same."
 
-        applicant_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_id = {applicant_id}")
-        respondent_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_id = {respondent_id}")
+        applicant_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{applicant_name}'")
+        respondent_check = self.db.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{respondent_name}'")
 
         if int(applicant_check[0][0]) == 0:
-            return 1, f"Error: applicant_id {applicant_id} does not exist."
+            return 1, f"Error: applicant_name {applicant_name} does not exist."
 
         if int(respondent_check[0][0]) == 0:
-            return 1, f"Error: respondent_id {respondent_id} does not exist."
+            return 1, f"Error: respondent_name {respondent_name} does not exist."
 
         if creation_time is None:
             creation_time = time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
 
-        self.db.exec(f"""
-            INSERT INTO application (applicant_id, respondent_id, creation_time)
-            VALUES ({applicant_id}, {respondent_id}, '{creation_time}')
-        """)
-        return 0, f"Application submitted successfully for applicant_id {applicant_id} and respondent_id {respondent_id}."
+        self.db.insert_application_data(applicant_name, respondent_name, creation_time)
+        return 0, f"Application submitted successfully for applicant_name {applicant_name} and respondent_name {respondent_name}."
 
-
-# 实例化数据库类
-db = Database()
-
-# 创建 AcdemicTree 实例
-academic_tree = AcdemicTree(db)
-
-# 测试申请函数（确保 user 表中有对应的 user_id）
-result, message = academic_tree.apply_for_mentorship(111, 222)
-print(result, message)
-result, message = academic_tree.apply_for_mentorship(222, 333)
-print(result, message)
-result, message = academic_tree.apply_for_mentorship(111, 111)  # 这是一个不合法的申请
-print(result, message)
-        
-            
    
 
     

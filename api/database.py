@@ -90,4 +90,17 @@ class Database():
         elif password_right==0:
             return 0
         
-    
+    def insert_application_data(self, applicant_name, respondent_name, creation_time):
+        # Check if applicant_name and respondent_name exist in user table
+        applicant_check = self.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{applicant_name}'")
+        respondent_check = self.exec(f"SELECT COUNT(*) FROM user WHERE user_name = '{respondent_name}'")
+
+        if int(applicant_check[0][0]) > 0 and int(respondent_check[0][0]) > 0:
+            self.exec(f"""
+                INSERT INTO application (applicant_name, respondent_name, creation_time)
+                VALUES ('{applicant_name}', '{respondent_name}', '{creation_time}')
+            """)
+            return 0, f"Inserted application for applicant_name {applicant_name} and respondent_name {respondent_name} successfully."
+        else:
+            return 1, f"Error: applicant_name {applicant_name} or respondent_name {respondent_name} does not exist in user table."
+
