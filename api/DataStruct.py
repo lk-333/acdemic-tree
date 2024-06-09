@@ -206,7 +206,7 @@ class AcdemicTree():
         recursion(me_node.mentees,me_x,me_y,0,1,me_dic["real_name"])
         
         data={}
-        data["ndoes"]=nodes
+        data["nodes"]=nodes
         data["links"]=links
         return data
 
