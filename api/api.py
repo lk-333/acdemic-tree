@@ -123,10 +123,7 @@ def search_user():
 @app.route('/bulid_tree')
 def bulid_tree():
     data=request.get_json()
-    x_me=500
-    y_me=300
-    
-    tree=locate_nodes(atree[data["id"]])
+    tree=locate_nodes(atree.users[data["id"]])
     return jsonify(tree)
 
 if __name__=="__main__":   
