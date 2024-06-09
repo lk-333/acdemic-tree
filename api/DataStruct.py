@@ -3,6 +3,7 @@ from typing import List
 import hashlib
 import time
 from typing import Dict,Tuple
+import numpy as np
 
 max_id=1000
 
@@ -148,6 +149,66 @@ class AcdemicTree():
             return 1
         else:
             return 0
+    
+    def locate_nodes(self,me_node:Node):
+        nodes=[]
+        links=[]
+        
+        def recursion(ments,x,y,flag,depth,fa_name):
+            N=len(ments)
+            if N%2==1:
+                x_lst=x+np.array(range(-int((N-1)/2),int((N+1)/2)+1))*100
+            else:
+                x_lst=x+np.array(range(-(int(N/2)),int(N/2)))*100+50
+                
+            if flag==1:
+                y_now=y-100
+            else:
+                y_now=y+100 
+                
+            for x_now,node_now in zip(x_lst,ments):
+                node_now=node_now[0]
+                tmp_node_dic={}
+                s=self.db.get_user_info(node_now.user_id)
+                tmp_node_dic["real_name"]=s[4]
+                tmp_node_dic["user_id"]=node_now.user_id
+                tmp_node_dic["x"]=int(x_now)
+                tmp_node_dic["y"]=int(y_now)
+                nodes.append(tmp_node_dic)
+                
+                tmp_link_dic={}
+                if flag==1:
+                    tmp_link_dic["source"]=s[4]
+                    tmp_link_dic["target"]=fa_name
+                else:
+                    tmp_link_dic["source"]=fa_name
+                    tmp_link_dic["target"]=s[4]
+                links.append(tmp_link_dic)
+                    
+                if depth>0:
+                    if flag==1:
+                        recursion(node_now.mentors,x_now,y_now,flag,depth-1,tmp_node_dic["real_name"])
+                    else:
+                        recursion(node_now.mentees,x_now,y_now,flag,depth-1,tmp_node_dic["real_name"])
+                        
+        me_x=500
+        me_y=300
+        me_dic = {}
+        s = self.db.get_user_info(me_node.user_id)
+        me_dic["real_name"] = s[4]
+        me_dic["user_id"] = me_node.user_id
+        me_dic["profile_link"] = s[5]
+        me_dic["x"]=me_x
+        me_dic["y"]=me_y
+        nodes.append(me_dic)
+        
+        recursion(me_node.mentors,me_x,me_y,1,1,me_dic["real_name"])
+        recursion(me_node.mentees,me_x,me_y,0,1,me_dic["real_name"])
+        
+        data={}
+        data["ndoes"]=nodes
+        data["links"]=links
+        return data
 
 
     
