@@ -120,7 +120,7 @@ def search_user():
     status=atree.check_username_exists(username = data['name'])
     return jsonify({'status':status})
 
-@app.route('/bulid_tree')
+@app.route('/bulid_tree',methods=['POST'])
 def bulid_tree():
     data=request.get_json()
     tree=locate_nodes(atree.users[data["id"]])
