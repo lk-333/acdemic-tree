@@ -112,11 +112,11 @@ const TeacherSearchPage = () => {
             <div className="view-applications-container">
                 {searchResults.length > 0 && (
                 <ul>
-                    {searchResults.map((result, index) => (
-                        <li key={index} onClick={() => navigate(`/view-tree?id=${result.id}`)}
+                    {searchResults.map((results, index) => (
+                        <li key={index} onClick={() => navigate(`/view-tree?id=${results.user_id}`)}
                         >
-                            <p>姓名: {result.name}</p>
-                            <p>机构: {result.institution}</p>
+                            <p>姓名: {results.real_name}</p>
+                            <p>机构: {results.institute}</p>
 
 
                         </li>
@@ -130,13 +130,12 @@ const TeacherSearchPage = () => {
             <div className="sidebar">
                 <div className="sidebar-logo">
                     <div className="logo-container">
-                        <img src="/photo/logo.png" alt="Logo"/>
+                        <img src="/photo/xhc.png" alt="Logo"/>
                     </div>
 
                 </div>
                 <ul className="sidebar-menu">
                     <li><a onClick={handleTeacherFunctionClick}>教师功能</a></li>
-                    <li><a onClick={handleTeacherFunctionClick}>文献资源</a></li>
                     <li><Link to="/">退出登录</Link></li>
                 </ul>
                 <div className="sidebar-footer">

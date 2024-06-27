@@ -156,11 +156,13 @@ def get_Allapplications():
     s = atree.get_Allapplications()
     return jsonify({'applications': s})
 
-@app.route("/fserch_user", methods=['POST'])
+@app.route("/fsearch_user", methods=['POST'])
 def fserch_user():
     data = request.get_json()
-    s = atree.search_user(data['name'],data['searchType'])
-    return jsonify({'applications': s})
+
+    s = atree.search_user(data['name'],data['type'])
+    print(s)
+    return jsonify({'results': s})
 
 
 if __name__ == "__main__":

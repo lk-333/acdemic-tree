@@ -1,45 +1,49 @@
 import React, { useState } from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import './SearchPage.css';  // 引入样式文件
 
 const StudentSearchPage = () => {
     const [name, setName] = useState('');
+    const [searchType, setSearchType] = useState('Name');
+    const [searchResults, setSearchResults] = useState([]); // 新增状态
+
     const navigate = useNavigate();
-
     const location = useLocation();
-    const { username } = location.state || {};
+    const { Username  } = location.state || {};
 
 
-    const handleLogout = () => {
-        navigate('/login');
-    };
+    //点击搜索时
+    const fhandleSearch = async () => {
 
-    const handleStudentSearch = async () => {
-        // 发送请求到后端，使用 fetch 或 axios 发送请求
+        // 发送请求到后端，你可以使用 fetch 或 axios 发送请求
         try {
-            const response = await fetch('/search_user', {
+            const response = await fetch('/fsearch_user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name })
+                body: JSON.stringify({ name, type: searchType })
             });
 
             const data = await response.json();
 
-            if (data.status === 1) {
-                // 假设后端返回了成功的响应，跳转到创建树的页面
-                navigate('/create-tree');
+            if (Array.isArray(data.results)) {
+                setSearchResults(data.results); // 假设后端返回的数据中有个results数组
+
             } else {
+                console.error('Expected an array but received:', data);
+                setSearchResults([]);
+                alert('搜索失败');
                 console.error('搜索失败');
             }
         } catch (error) {
             console.error('Error:', error);
+            alert('搜索出错');
         }
     };
 
     const handleStudentFunctionClick = () => {
-        navigate('/student-function', { state: { username } });
+        navigate('/student-function', { state: { Username } });
     };
 
     return (
@@ -49,17 +53,65 @@ const StudentSearchPage = () => {
             </video>
             <div className="content-wrapper">
                 <h1 className="title">学术师承树</h1>
-                <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="请输入名字"
-                    className="search-input"
-                />
-                <button onClick={handleStudentSearch} className="search-button">搜索</button>
-                <button onClick={handleStudentFunctionClick} className="teacher-function-button">学生功能</button>
-                <button className="logout-button" onClick={handleLogout}>退出登录</button>
+                <div className="search-bar">
+
+                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}
+                            className="search-select">
+                        <option value="Name">人名</option>
+                        <option value="Institution">机构</option>
+                        {/* 可以根据需要添加更多搜索类型 */}
+                    </select>
+
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="请输入名字"
+                        className="search-input"
+                    />
+
+                    <button onClick={fhandleSearch} className="search-button">搜索</button>
+
+                </div>
             </div>
+
+            {/*查看表单*/}
+
+            <div className="view-applications-container">
+                {searchResults.length > 0 && (
+                    <ul>
+                        {searchResults.map((result, index) => (
+                            <li key={index} onClick={() => navigate(`/view-tree?id=${result.id}`)}
+                            >
+                                <p>姓名: {result.name}</p>
+                                <p>机构: {result.institution}</p>
+
+
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+            </div>
+
+            <div className="sidebar">
+                <div className="sidebar-logo">
+                    <div className="logo-container">
+                        <img src="/photo/student-logo.png" alt="Logo"/>
+                    </div>
+
+                </div>
+                <ul className="sidebar-menu">
+                    <li><a onClick={handleStudentFunctionClick}>学生功能</a></li>
+
+                    <li><Link to="/">退出登录</Link></li>
+                </ul>
+                <div className="sidebar-footer">
+                    <button>我的导航</button>
+                </div>
+            </div>
+
+
         </div>
     );
 };
