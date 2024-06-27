@@ -22,7 +22,7 @@ const Register = () => {
                 });
                 const data = await response.json();
                 if (data.status === 1) {
-                    navigate('/login');
+                    navigate('/');
                 } else {
                     setError('注册失败，请重试');
                 }

@@ -27,7 +27,7 @@ const TeacherFunctionPage = () => {
     };
 
     const handleLogout = () => {
-        navigate('/login');
+        navigate('/');
     };
 
     const handleOpenModal = () => {

@@ -19,7 +19,7 @@ const AdministerFunctionPage = () => {
     };
 
     const handleLogout = () => {
-        navigate('/login');
+        navigate('/');
     };
 
 

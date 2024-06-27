@@ -37,9 +37,9 @@ root.render(
                 <Route path="/search-tree-student" element={<StudentSearchPage />} />
                 <Route path="/search-tree" element={<SearchPage />} /> {/* 添加 TreePage 路由 */}
                 <Route path="/create-tree" element={<MyTreeComponent />} /> {/* 添加 TreePage 路由 */}
-                <Route path="/login" element={<Login />} />
+                <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/" element={<App />} />
+                {/* <Route path="/" element={<App />} /> */}
             </Routes>
         </Router>
     </React.StrictMode>

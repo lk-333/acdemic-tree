@@ -29,7 +29,7 @@ const StudentFunctionPage = () => {
     };
 
     const handleLogout = () => {
-        navigate('/login');
+        navigate('/');
     };
 
     const handleCloseModal = () => {

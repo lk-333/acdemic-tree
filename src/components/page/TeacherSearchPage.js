@@ -86,7 +86,7 @@ const TeacherSearchPage = () => {
                 <ul className="sidebar-menu">
                 <li><a onClick={handleTeacherFunctionClick}>教师功能</a></li>
                     <li><a onClick={handleTeacherFunctionClick}>文献资源</a></li>
-                    <li><Link to="/login">退出登录</Link></li>
+                    <li><Link to="/">退出登录</Link></li>
                 </ul>
                 <div className="sidebar-footer">
                 <button>我的导航</button>
