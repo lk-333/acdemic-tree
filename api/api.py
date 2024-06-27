@@ -164,6 +164,13 @@ def fserch_user():
     print(s)
     return jsonify({'results': s})
 
+@app.route("/userNameExist", methods=['POST'])
+def userNameExist():
+    data = request.get_json()
+
+    s = atree.check_user_exists(data['name'])
+    print(s)
+    return jsonify({'results': s})
 
 if __name__ == "__main__":
     def run():

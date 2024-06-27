@@ -60,6 +60,14 @@ class AcdemicTree():
                          institute=institute)
         return 1
 
+    def check_user_exists(self, name: str) -> int:
+        query = f"SELECT COUNT(*) FROM user WHERE real_name = '{name}'"
+        result = self.db.exec(query)
+        if result[0][0] > 0:
+            return 1
+        else:
+            return 0
+
     def add_mentorship(self, mentor_id, mentee_id, start_date=None, end_date=None):
         if start_date == None:
             start_date = time.strftime("%Y-%m-%d", time.gmtime())
