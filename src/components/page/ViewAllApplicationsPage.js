@@ -97,6 +97,7 @@ const ViewAllApplicationsPage = () => {
                         className={selectedApplication?.item_id === app.item_id ? 'selected' : ''}
                     >
                         <p>申请人: {app.applicantName}</p>
+                        <p>被申请人: {app.respondentName}</p>
                         <p>起止时间: {app.applicantTime}</p>
 
                     </li>
@@ -108,6 +109,7 @@ const ViewAllApplicationsPage = () => {
                         <span className="close" onClick={handleModalClose}>&times;</span>
                         <h2>申请详情</h2>
                         <p>申请人: {modalContent.applicantName}</p>
+                        <p>被申请人: {modalContent.respondentName}</p>
                         <p>起止时间: {modalContent.applicantTime}</p>
                         <p>是否同意此申请？</p>
                         <button onClick={() => handleDecision('Yes')} className="function-button">Yes</button>

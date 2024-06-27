@@ -205,10 +205,10 @@ class AcdemicTree():
         results = []
         for app in unprocessed_apps:
             result = {
-                "applicant_name": app[0],
-                "respondent_name": app[1],
+                "applicantName": app[0],
+                "respondentName": app[1],
                 "item_id": app[2],
-                "creation_time": app[3].strftime("%Y-%m-%d %H:%M:%S")
+                "applicantTime": app[3].strftime("%Y-%m-%d %H:%M:%S")
             }
             results.append(result)
         return results
