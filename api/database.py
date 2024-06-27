@@ -38,12 +38,11 @@ class Database():
 
 
     
-    def register(self,user_id,user_name,password,identity):
+    def register(self, user_id, user_name, password, identity, institute):
         self.exec(f"""
-                    insert
-                    into user (user_id,user_name,password,identity)
-                    values ({user_id},'{user_name}','{password}','{identity}')
-                """)
+            INSERT INTO user (user_id, user_name, password, identity, institute)
+            VALUES ({user_id}, '{user_name}', '{password}', '{identity}', '{institute}')
+        """)
     
     def add_user_msg(self,real_name,profile_link):
         self.exec(f"""

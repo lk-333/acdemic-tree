@@ -4,6 +4,7 @@ import hashlib
 import time
 from typing import Dict, Tuple
 import numpy as np
+import random
 import json
 
 max_id = 1000
@@ -42,6 +43,10 @@ class AcdemicTree():
             self.users[mentee_id].mentors.append([self.users[mentor_id], mentorship_id])
             self.users[mentor_id].mentees.append([self.users[mentee_id], mentorship_id])
 
+    def get_random_institute(self):
+        institutes = ["Institute A", "Institute B", "Institute C", "Institute D", "Institute E"]
+        return random.choice(institutes)
+
     # 0 用户名已存在
     # 1 注册成功
     def register(self, user_name, password, identity):
@@ -50,7 +55,9 @@ class AcdemicTree():
             return 0
         newguy = Node(user_id=user_id)
         self.users[user_id] = newguy
-        self.db.register(user_id=user_id, user_name=user_name, password=password, identity=identity)
+        institute = self.get_random_institute()  # 随机生成institute值
+        self.db.register(user_id=user_id, user_name=user_name, password=password, identity=identity,
+                         institute=institute)
         return 1
 
     def add_mentorship(self, mentor_id, mentee_id, start_date=None, end_date=None):
@@ -212,6 +219,25 @@ class AcdemicTree():
             }
             results.append(result)
         return results
+
+    def search_user(self, name: str, searchType: str) -> List[Dict[str, str]]:
+        if searchType == "Name":
+            query = f"SELECT real_name, institute, user_id FROM user WHERE real_name = '{name}'"
+        elif searchType == "Institution":
+            query = f"SELECT real_name, institute, user_id FROM user WHERE institute = '{name}'"
+        else:
+            return []  # 无效的 searchType，返回空列表
+
+        results = self.db.exec(query)
+        users = []
+        for result in results:
+            user = {
+                "real_name": result[0],
+                "institute": result[1],
+                "user_id": result[2]
+            }
+            users.append(user)
+        return users
 
     def locate_nodes(self, me_node: Node):
         nodes = []
