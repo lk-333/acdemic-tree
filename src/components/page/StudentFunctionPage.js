@@ -157,7 +157,7 @@ const StudentFunctionPage = () => {
                 )}
 
                 <button onClick={handleBack} className="function-button">返回</button>
-                <button className="logout-button" onClick={handleLogout}>退出登录</button>
+
             </div>
         </div>
     );

@@ -1,7 +1,8 @@
 /* 搜索页面的整体容器样式 */
 .search-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;  /* 调整对齐方式为起始对齐 */
     align-items: center;
     height: 100vh;
     position: relative;
@@ -21,11 +22,12 @@
 
 /* 内容包裹器，控制内容的宽度和布局 */
 .content-wrapper {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    width: 65%; /* 或根据需要调整宽度 */
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px 40px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 5%; /* 减小顶部边距或调整为适当的值 */
 }
 
 /* 标题样式 */
@@ -35,34 +37,7 @@
     color: #333;
 }
 
-/* 输入框样式 */
-.search-input {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
-/* 搜索按钮样式 */
-.search-button {
-    width: 100%;
-    max-width: 200px;
-    padding: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.search-button:hover {
-    background-color: #0056b3;
-}
 
 /* 学生功能按钮样式 */
 .teacher-function-button {
@@ -104,3 +79,126 @@
 .logout-button:hover {
     background-color: #c2302b;
 }
+
+
+
+
+
+.sidebar {
+    width: 250px; /* 侧边栏宽度 */
+    height: 100vh; /* 全屏高度 */
+    position: fixed; /* 固定位置 */
+    left: 0; /* 左边对齐 */
+    top: 0; /* 顶部对齐 */
+    background-color: #2C3E50; /* 背景颜色 */
+    color: white; /* 文字颜色 */
+    z-index: 1000; /* 层级高，确保在最前面 */
+}
+
+.sidebar-logo {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar-menu {
+    list-style: none; /* 去除列表符号 */
+    padding: 0;
+}
+
+.sidebar-menu li a {
+    display: block; /* 使链接充满整个列表项 */
+    padding: 10px; /* 增加填充 */
+    color: white; /* 链接颜色 */
+    text-decoration: none; /* 去除下划线 */
+    transition: background 0.3s;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #34495E; /* 悬停时背景颜色 */
+}
+
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.sidebar-footer button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #16A085;
+    color: white;
+    cursor: pointer;
+}
+
+.sidebar-footer button:hover {
+    background-color: #1ABC9C;
+}
+
+
+.logo-container {
+    width: 100%;  /* 容器宽度占满父元素 */
+    height: auto; /* 高度自动调整以保持宽高比 */
+    text-align: center; /* 如果需要，可以将图片居中显示 */
+}
+
+.logo-container img {
+    width: 80%;  /* 图片宽度为容器的80%，您可以根据需要调整 */
+    height: auto; /* 高度自动调整以保持宽高比 */
+    max-width: 200px; /* 最大宽度限制，防止图片过大 */
+}
+
+/* 搜索框容器样式，确保居中显示并调整外边距 */
+.search-bar {
+    display: flex;
+    align-items: center;  /* 垂直居中对齐所有子元素 */
+    padding: 10px;
+    background-color: #FFFFFF;  /* 白色背景 */
+    border-radius: 5px;  /* 圆角边框 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);  /* 轻微阴影效果 */
+    width: 100%;  /* 调整宽度以适应容器 */
+    margin: 20px auto;  /* 上下外边距调整，水平居中 */
+}
+
+.search-select {
+    padding: 8px 12px;
+    width: 200px;
+    margin-right: 10px; /* 与输入框有间隔 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.search-input {
+    flex-grow: 1; /* 输入框占据剩余空间 */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none; /* 点击时不显示轮廓 */
+}
+
+.search-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    width: 200px;  /* 设置按钮的固定宽度为100像素 */
+    background-color: #007bff; /* 蓝色背景 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 2px; /* 微调顶部外边距，根据需要调整数值 */
+
+}
+
+.search-button:hover {
+    background-color: #0056b3; /* 按钮悬停颜色变深 */
+}
+
+
+.search-input, .search-select, .search-button {
+    box-sizing: border-box; /* 边框和内边距包含在宽度内 */
+}
+

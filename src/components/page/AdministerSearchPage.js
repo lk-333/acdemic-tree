@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 import {useLocation, useNavigate} from 'react-router-dom';
 import './SearchPage.css';  // 引入样式文件
 
-const TeacherSearchPage = () => {
+const AdminiserSearchPage = () => {
     const [name, setName] = useState('');
-    const [searchType, setSearchType] = useState('Name');
     const navigate = useNavigate();
     const location = useLocation();
     const { Username  } = location.state || {};
@@ -21,7 +20,7 @@ const TeacherSearchPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ name, type: searchType })
+                body: JSON.stringify({ name })
             });
 
             const data = await response.json();
@@ -38,12 +37,11 @@ const TeacherSearchPage = () => {
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('搜索出错');
         }
     };
 
-    const handleTeacherFunctionClick = () => {
-        navigate('/teacher-function', { state: { Username  } });
+    const handleAdministerFunctionClick = () => {
+        navigate('/administer-function', { state: { Username  } });
     };
 
     return (
@@ -53,27 +51,18 @@ const TeacherSearchPage = () => {
             </video>
             <div className="content-wrapper">
                 <h1 className="title">学术师承树</h1>
-                <div className="search-bar">
+                <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="请输入名字"
+                    className="search-input"
+                />
 
-                    <select value={searchType} onChange={(e) => setSearchType(e.target.value)}
-                            className="search-select">
-                        <option value="Name">人名</option>
-                        <option value="Institution">机构</option>
-                        {/* 可以根据需要添加更多搜索类型 */}
-                    </select>
+                <button onClick={handleSearch} className="search-button">搜索</button>
 
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="请输入名字"
-                        className="search-input"
-                    />
-
-                    <button onClick={handleSearch} className="search-button">搜索</button>
-
-                </div>
             </div>
+
 
 
             <div className="sidebar">
@@ -84,12 +73,12 @@ const TeacherSearchPage = () => {
 
                 </div>
                 <ul className="sidebar-menu">
-                <li><a onClick={handleTeacherFunctionClick}>教师功能</a></li>
-                    <li><a onClick={handleTeacherFunctionClick}>文献资源</a></li>
+                    <li><a onClick={handleAdministerFunctionClick}>管理员功能</a></li>
+                    <li><a onClick={handleAdministerFunctionClick}>文献资源</a></li>
                     <li><Link to="/login">退出登录</Link></li>
                 </ul>
                 <div className="sidebar-footer">
-                <button>我的导航</button>
+                    <button>我的导航</button>
                 </div>
             </div>
 
@@ -97,4 +86,4 @@ const TeacherSearchPage = () => {
     );
 };
 
-export default TeacherSearchPage;
+export default AdminiserSearchPage;

@@ -87,7 +87,7 @@ const AcademicTree = () => {
                     if (d.profile_link) {
                         window.open(d.profile_link, '_blank');
                     } else {
-                        navigate(`/create-tree?id=${d.id}`);
+                        navigate(`/create-tree?id=222`);
                     }
                 });
 
@@ -103,9 +103,9 @@ const AcademicTree = () => {
                     .attr('real_name', 'hoverText')
                     .text('2018-2022');
             })
-                .on('mouseleave', function () {
-                    d3.select('#hoverText').remove(); // 移除 hover 文本
-                });
+            .on('mouseleave', function () {
+                d3.select('#hoverText').remove(); // 移除 hover 文本
+            });
 
         };
 

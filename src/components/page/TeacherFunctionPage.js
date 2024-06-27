@@ -102,7 +102,7 @@ const TeacherFunctionPage = () => {
                 <button onClick={handleOpenModal} className="function-button">发送申请</button>
                 <button onClick={handleOpenEditModal} className="function-button">修改个人信息</button>
                 <button onClick={handleBack} className="function-button">返回</button>
-                <button className="logout-button" onClick={handleLogout}>退出登录</button>
+
                 {showModal && (
                     <div className="modal">
                         <div className="modal-content">

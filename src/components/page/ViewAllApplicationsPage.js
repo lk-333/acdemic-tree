@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './ViewApplicationsPage.css';
 
-const ViewApplicationsPage = () => {
+const ViewAllApplicationsPage = () => {
     const [applications, setApplications] = useState([]);
     const [selectedApplication, setSelectedApplication] = useState(null);
     const [showModal, setShowModal] = useState(false);
@@ -14,16 +14,17 @@ const ViewApplicationsPage = () => {
 
     const username = Username;
 
+
     const fetchApplications = async () => {
         try {
-            const response = await fetch('/get-applications', {
+            const response = await fetch('/get-Allapplications', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username })
-            });
+                body: JSON.stringify({  })
 
+            });
             const data = await response.json();
 
             if (Array.isArray(data.applications)) {
@@ -45,7 +46,7 @@ const ViewApplicationsPage = () => {
     }, [username]);
 
     const handleBack = () => {
-        navigate('/teacher-function');
+        navigate('/administer-function');
     };
 
     const handleView = (app) => {
@@ -117,4 +118,4 @@ const ViewApplicationsPage = () => {
     );
 };
 
-export default ViewApplicationsPage;
+export default ViewAllApplicationsPage;

@@ -130,6 +130,8 @@ def get_applications():
 def deal_applications():
     data=request.get_json()
     status,s=atree.process_application(item_id = data['item_id'], result = data['result'])
+    print(data['item_id'])
+    print(data['result'])
     return jsonify({'status':status})
 
 @app.route('/bulid_tree',methods=['POST'])
