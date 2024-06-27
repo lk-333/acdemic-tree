@@ -202,3 +202,6 @@
     box-sizing: border-box; /* 边框和内边距包含在宽度内 */
 }
 
+.view-applications-container {
+    padding: 20px;
+}

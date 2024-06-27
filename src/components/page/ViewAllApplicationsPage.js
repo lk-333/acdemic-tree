@@ -40,6 +40,7 @@ const ViewAllApplicationsPage = () => {
     };
 
     useEffect(() => {
+        fetchApplications();
         if (username) {
             fetchApplications();
         }
