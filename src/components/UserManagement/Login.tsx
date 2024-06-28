@@ -60,9 +60,6 @@ const Login = () => {
 
     return (
         <div className="form_container">
-            <video autoPlay muted loop className="video-background">
-                <source src="/videos/donghua.mp4" type="video/mp4"/>
-            </video>
             <Form form={form} onFinish={handleLogin}  className="custom_form">
                 <h2>登录</h2>
                 <Form.Item
