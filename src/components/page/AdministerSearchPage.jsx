@@ -51,7 +51,7 @@ const AdminiserSearchPage = () => {
     return (
         <div className="search-container">
             <video autoPlay muted loop className="video-background">
-                <source src="/videos/sea.mp4" type="video/mp4"/>
+                <source src="/videos/5草木养眼.mp4" type="video/mp4"/>
             </video>
             <div className="content-wrapper">
                 <h1 className="title">学术师承树</h1>

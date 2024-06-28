@@ -25,9 +25,9 @@ class TreeView():
         def recursion(ments, x, y, flag, depth, fa_name):
             N = len(ments)
             if N % 2 == 1:
-                x_lst = np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1) )* (100+depth*75)
+                x_lst = np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1) )* (100+depth*150)
             else:
-                x_lst = np.array(range(-(int(N / 2)), int(N / 2))) * (100+depth*75) + 50
+                x_lst = np.array(range(-(int(N / 2)), int(N / 2))) * (100+depth*150) + 50
 
             if flag == 1:
                 y_now = y - 100
@@ -59,10 +59,10 @@ class TreeView():
                 if depth > 0:
                     if flag == 1:
                         if len(node_now.mentors)>1:
-                            recursion(node_now.mentors, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
+                            recursion(node_now.mentors, tmp_node_dic["x"], tmp_node_dic["y"], flag, depth - 1, tmp_node_dic["real_name"])
                     else:
                         if len(node_now.mentees)>1:
-                            recursion(node_now.mentees, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
+                            recursion(node_now.mentees, tmp_node_dic["x"], tmp_node_dic["y"], flag, depth - 1, tmp_node_dic["real_name"])
 
         me_x = 500
         me_y = 300

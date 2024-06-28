@@ -23,25 +23,28 @@ const ForgetPassword = () => {
 
     return (
         <div className="form_container">
-            <Form form={form} onFinish={handleSubmit}  className="custom_form">
+            <video autoPlay muted loop className="video-background">
+                <source src="/videos/donghua.mp4" type="video/mp4"/>
+            </video>
+            <Form form={form} onFinish={handleSubmit} className="custom_form">
                 <h2>找回密码</h2>
                 <Form.Item
                     name="email"
                     rules={[
-                        { required: true, message: '请输入邮箱' },
+                        {required: true, message: '请输入邮箱'},
                         {
                             pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
                             message: '请输入有效的邮箱',
                         },
                     ]}
                 >
-                    <Input placeholder="请输入邮箱" onChange={handleEmailChange} />
+                    <Input placeholder="请输入邮箱" onChange={handleEmailChange}/>
                 </Form.Item>
                 <Form.Item
                     name="newPassword"
                     rules={[
-                        { required: true, message: '请输入新密码' },
-                        { min: 6, message: '密码最少6位' },
+                        {required: true, message: '请输入新密码'},
+                        {min: 6, message: '密码最少6位'},
                         {
                             pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
                             message: '密码需包含至少1个大写字母、1个小写字母、1个数字和1个特殊字符',
@@ -58,7 +61,7 @@ const ForgetPassword = () => {
                             required: true,
                             message: '请再次输入密码',
                         },
-                        ({ getFieldValue }) => ({
+                        ({getFieldValue}) => ({
                             validator(_, value) {
                                 if (!value || getFieldValue('password') === value) {
                                     return Promise.resolve();
@@ -74,12 +77,12 @@ const ForgetPassword = () => {
                     <Form.Item
                         name="verificationCode"
                         className='verificationCode'
-                        rules={[{ required: true, message: '请输入验证码' }]}
+                        rules={[{required: true, message: '请输入验证码'}]}
                     >
                         <Input placeholder="请输入验证码"/>
                     </Form.Item>
                     <Form.Item>
-                        <VerificationCodeButton 
+                        <VerificationCodeButton
                             isCodeButtonDisabled={isCodeButtonDisabled}
                             setIsCodeButtonDisabled={setIsCodeButtonDisabled}
                         />

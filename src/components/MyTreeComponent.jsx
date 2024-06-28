@@ -123,10 +123,19 @@ const AcademicTree = () => {
         fetchData();
     },[refreshKey])
 
+
+
+    const handleBack = () => {
+        navigate('/search-tree-teacher');
+    };
+
     return (
-        <div className="svg-container" style={{ position: 'relative' }}>
+        <div className="svg-container" style={{position: 'relative'}}>
             <svg ref={svgRef}></svg>
+
+            <button onClick={handleBack } className="function-button">返回</button>
         </div>
+
     );
 };
 

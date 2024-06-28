@@ -60,12 +60,15 @@ const Login = () => {
 
     return (
         <div className="form_container">
-            <Form form={form} onFinish={handleLogin}  className="custom_form">
+            <video autoPlay muted loop className="video-background">
+                <source src="/videos/donghua.mp4" type="video/mp4"/>
+            </video>
+            <Form form={form} onFinish={handleLogin} className="custom_form">
                 <h2>登录</h2>
                 <Form.Item
                     name="username"
                     rules={[
-                        { required: true, message: '请输入用户名或邮箱' },
+                        {required: true, message: '请输入用户名或邮箱'},
                     ]}
                 >
                     <Input placeholder="请输入用户名或邮箱"/>
@@ -73,7 +76,7 @@ const Login = () => {
                 <Form.Item
                     name="password"
                     rules={[
-                        { required: true, message: '请输入密码' },
+                        {required: true, message: '请输入密码'},
                     ]}
                 >
                     <Input.Password placeholder="请输入密码"/>
@@ -82,7 +85,7 @@ const Login = () => {
                 <Form.Item
                     name="identity"
                     rules={[
-                        { required: true, message: '请选择身份' },
+                        {required: true, message: '请选择身份'},
                     ]}
                 >
                     <Select placeholder="请选择身份">
@@ -91,7 +94,7 @@ const Login = () => {
                         <Option value="admin">管理员</Option>
                     </Select>
                 </Form.Item>
-                
+
                 {error && <p className="error">{error}</p>}
 
                 <Form.Item>
@@ -101,13 +104,13 @@ const Login = () => {
                 </Form.Item>
                 <div className='toRouter'>
                     <Link to="/forget_password">忘记密码</Link>
-                    <span>已有账号?<Link to="/register" >快速注册</Link></span>
+                    <span>已有账号?<Link to="/register">快速注册</Link></span>
                 </div>
-                
+
             </Form>
-            
+
         </div>
-        
+
     );
 };
 

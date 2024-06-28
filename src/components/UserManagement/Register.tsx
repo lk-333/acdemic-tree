@@ -91,46 +91,45 @@ const Register = () => {
     return (
         <div className="form_container">
             <video autoPlay muted loop className="video-background">
-                <source src="path/to/your/video.mp4" type="video/mp4" />
-                您的浏览器不支持视频标签。
+                <source src="/videos/donghua.mp4" type="video/mp4"/>
             </video>
             <Form form={form} onFinish={handleSubmit} className="custom_form">
                 <h2>用户注册</h2>
-                
-                <UsernameInput />
+
+                <UsernameInput/>
 
                 <Form.Item
                     name="email"
                     rules={[
-                        { required: true, message: '请输入邮箱' },
+                        {required: true, message: '请输入邮箱'},
                         {
                             pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
                             message: '请输入有效的邮箱',
                         },
                     ]}
                 >
-                    <Input placeholder="请输入邮箱" onChange={handleEmailChange} />
+                    <Input placeholder="请输入邮箱" onChange={handleEmailChange}/>
                 </Form.Item>
                 <div className='verificationArea'>
                     <Form.Item
                         name="verificationCode"
                         className='verificationCode'
-                        rules={[{ required: true, message: '请输入验证码' }]}
+                        rules={[{required: true, message: '请输入验证码'}]}
                     >
                         <Input placeholder="请输入验证码"/>
                     </Form.Item>
-                    
-                    <VerificationCodeButton 
-                            isCodeButtonDisabled={isCodeButtonDisabled}
-                            setIsCodeButtonDisabled={setIsCodeButtonDisabled}
-                        />
+
+                    <VerificationCodeButton
+                        isCodeButtonDisabled={isCodeButtonDisabled}
+                        setIsCodeButtonDisabled={setIsCodeButtonDisabled}
+                    />
 
                 </div>
                 <Form.Item
                     name="password"
                     rules={[
-                        { required: true, message: '请输入密码' },
-                        { min: 6, message: '密码最少6位' },
+                        {required: true, message: '请输入密码'},
+                        {min: 6, message: '密码最少6位'},
                         {
                             pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
                             message: '密码需包含至少1个大写字母、1个小写字母、1个数字和1个特殊字符',
@@ -148,7 +147,7 @@ const Register = () => {
                             required: true,
                             message: '请再次输入密码',
                         },
-                        ({ getFieldValue }) => ({
+                        ({getFieldValue}) => ({
                             validator(_, value) {
                                 if (!value || getFieldValue('password') === value) {
                                     return Promise.resolve();
@@ -160,11 +159,11 @@ const Register = () => {
                 >
                     <Input.Password placeholder="请再次输入密码"/>
                 </Form.Item>
-                
+
                 <Form.Item
                     name="identity"
                     rules={[
-                        { required: true, message: '请选择身份' },
+                        {required: true, message: '请选择身份'},
                     ]}
                 >
                     <Select placeholder="请选择身份">
@@ -173,7 +172,7 @@ const Register = () => {
                         <Option value="admin">管理员</Option>
                     </Select>
                 </Form.Item>
-                
+
                 {error && <p className="error">{error}</p>}
 
                 <Form.Item>
@@ -183,7 +182,7 @@ const Register = () => {
                 </Form.Item>
                 <div className='toRouter'>
                     <Link to="/forget_password">忘记密码</Link>
-                    <span>已有账号?<Link to="/" >马上登录</Link></span>
+                    <span>已有账号?<Link to="/">马上登录</Link></span>
                 </div>
             </Form>
         </div>
