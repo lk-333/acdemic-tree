@@ -3,6 +3,7 @@ import hashlib
 import time
 import threading
 from args import args
+from typing import Dict
 
 max_id=1000
 
@@ -37,7 +38,22 @@ class Database():
             return results
 
 
-    
+    def get_rel_info(self, mentorship_id: int) -> Dict[str, str]:
+        query = f"SELECT mentorship_id, mentor_id, mentee_id, start_date, end_date FROM mentorship WHERE mentorship_id = {mentorship_id}"
+        result = self.exec(query)
+        if not result:
+            return {}
+
+        mentorship = result[0]
+        mentorship_data = {
+            "mentorship_id": mentorship[0],
+            "mentor_id": mentorship[1],
+            "mentee_id": mentorship[2],
+            "start_time": mentorship[3].strftime("%Y-%m-%d"),
+            "end_time": mentorship[4].strftime("%Y-%m-%d") if mentorship[4] else None
+        }
+        return mentorship_data
+
     def register(self, user_id, user_name, password, identity, institute):
         self.exec(f"""
             INSERT INTO user (user_id, user_name, password, identity, institute)

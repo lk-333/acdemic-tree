@@ -59,13 +59,16 @@ const AcademicTree = () => {
                     const x = (data.nodes.find(node => node.real_name === d.source).x + data.nodes.find(node => node.real_name === d.target).x) / 2;
                     const y = (data.nodes.find(node => node.real_name === d.source).y + data.nodes.find(node => node.real_name === d.target).y) / 2;
                     const hoverTextId = `hoverText-${d.source}-${d.target}`;
-                
+
+                    const startDate = d.start_time;
+                    const endDate = d.end_time==="1970-01-01"?"今": d.end_time;
+                    const timeRange = `${startDate} 至${endDate}`;
                     svg.append('text')
                         .attr('x', x)
                         .attr('y', y)
                         .attr('text-anchor', 'middle')
                         .attr('id', hoverTextId)  // 动态生成唯一的 id
-                        .text("nmsl");
+                        .text(timeRange);
                 })
                 .on('mouseleave', function (event, d) {
                     const hoverTextId = `hoverText-${d.source}-${d.target}`;

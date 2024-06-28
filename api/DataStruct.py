@@ -281,8 +281,8 @@ class AcdemicTree():
                     tmp_link_dic["source"] = fa_name
                     tmp_link_dic["target"] = s[4]
                 rel_msg=self.db.get_rel_info(rel_now)
-                tmp_link_dic["start_time"]=rel_msg[3]
-                tmp_link_dic["end_time"]=rel_msg[4]
+                tmp_link_dic["start_time"]=rel_msg["start_time"]
+                tmp_link_dic["end_time"]=rel_msg["end_time"]
                 links.append(tmp_link_dic)
 
                 if depth > 0:
