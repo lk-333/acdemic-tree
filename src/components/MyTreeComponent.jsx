@@ -20,6 +20,7 @@ const AcademicTree = () => {
                 body: JSON.stringify({ id })
             });
             const data = await response.json();
+            console.log(data)
             const width = 1000;
             const height = 600;
             d3.select(svgRef.current).selectAll('*').remove();
@@ -57,16 +58,18 @@ const AcademicTree = () => {
                 .on('mouseenter', function (event, d) {
                     const x = (data.nodes.find(node => node.real_name === d.source).x + data.nodes.find(node => node.real_name === d.target).x) / 2;
                     const y = (data.nodes.find(node => node.real_name === d.source).y + data.nodes.find(node => node.real_name === d.target).y) / 2;
-
+                    const hoverTextId = `hoverText-${d.source}-${d.target}`;
+                
                     svg.append('text')
                         .attr('x', x)
                         .attr('y', y)
                         .attr('text-anchor', 'middle')
-                        .attr('real_name', 'hoverText')
-                        .text('2018-2022');
+                        .attr('id', hoverTextId)  // 动态生成唯一的 id
+                        .text("nmsl");
                 })
-                .on('mouseleave', function () {
-                    d3.select('#hoverText').remove(); // 移除 hover 文本
+                .on('mouseleave', function (event, d) {
+                    const hoverTextId = `hoverText-${d.source}-${d.target}`;
+                    d3.select(`#${hoverTextId}`).remove(); // 移除 hover 文本
                 });
 
             // 绘制节点文本
@@ -90,22 +93,7 @@ const AcademicTree = () => {
                         navigate(`/create-tree?id=222`);
                     }
                 });
-
-            // 添加鼠标悬停事件来显示文本
-            links.on('mouseenter', function (event, d) {
-                const x = (data.nodes.find(node => node.real_name === d.source).x + data.nodes.find(node => node.real_name === d.target).x) / 2;
-                const y = (data.nodes.find(node => node.real_name === d.source).y + data.nodes.find(node => node.real_name === d.target).y) / 2;
-
-                svg.append('text')
-                    .attr('x', x)
-                    .attr('y', y)
-                    .attr('text-anchor', 'middle')
-                    .attr('real_name', 'hoverText')
-                    .text('2018-2022');
-            })
-            .on('mouseleave', function () {
-                d3.select('#hoverText').remove(); // 移除 hover 文本
-            });
+            
 
         };
 

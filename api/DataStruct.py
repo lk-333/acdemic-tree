@@ -263,8 +263,8 @@ class AcdemicTree():
             else:
                 y_now = y + 100
 
-            for x_now, node_now in zip(x_lst, ments):
-                node_now = node_now[0]
+            for x_now, ment_now in zip(x_lst, ments):
+                node_now,rel_now = ment_now
                 tmp_node_dic = {}
                 s = self.db.get_user_info(node_now.user_id)
                 tmp_node_dic["real_name"] = s[4]
@@ -280,6 +280,9 @@ class AcdemicTree():
                 else:
                     tmp_link_dic["source"] = fa_name
                     tmp_link_dic["target"] = s[4]
+                rel_msg=self.db.get_rel_info(rel_now)
+                tmp_link_dic["start_time"]=rel_msg[3]
+                tmp_link_dic["end_time"]=rel_msg[4]
                 links.append(tmp_link_dic)
 
                 if depth > 0:
@@ -305,5 +308,6 @@ class AcdemicTree():
         data = {}
         data["nodes"] = nodes
         data["links"] = links
+        print(data["links"])
         return data
 
