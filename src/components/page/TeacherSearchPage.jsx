@@ -130,7 +130,7 @@ const TeacherSearchPage = () => {
             <div className="sidebar">
                 <div className="sidebar-logo">
                     <div className="logo-container">
-                        <img src="/photo/xhc.png" alt="Logo"/>
+                        <img src="/photo/tlog.jpg" alt="Logo"/>
                     </div>
 
                 </div>
