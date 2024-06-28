@@ -97,6 +97,25 @@ const AcademicTree = () => {
                     }
                 });
             
+            // 添加加号
+            svg.append('g')
+            .selectAll('text')
+            .data(data.nodes)
+            .enter().append('text')
+            .attr('dy', 3) // 调整文字位置
+            .attr('text-anchor', 'middle')
+            .attr('x', d => d.x + d.real_name.length * 8 + 10) // 在文本右边添加加号
+            .attr('y', d => d.y)
+            .attr('font-size', 16)
+            .attr('fill', '#007bff') // 设置加号颜色
+            .style('cursor', 'pointer')  // 设置鼠标样式
+            .text('+')
+            .on('click', (event, d) => {
+                // 在此处添加加号点击事件处理
+                alert(`加号点击: ${d.real_name}`);
+                // 执行你的点击事件逻辑
+            });
+            
 
         };
 
