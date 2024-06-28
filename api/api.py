@@ -10,68 +10,87 @@ from typing import List
 import numpy as np
 
 
-# to_pre_queue = queue.Queue()
-# from_pre_quque = queue.Queue()  
+treeView_dict={}
+tree_id=0
+class TreeView():
+    def __init__(self,node:Node):
+        data=self.build_tree(node)
+        self.nodes=data["nodes"]
+        self.links=data["links"]
 
-def locate_nodes(me_node: Node):
-    nodes = []
-    links = []
+    def build_tree(self,me_node: Node):
+        nodes = []
+        links = []
 
-    def recursion(ments: List[List[Node, int]], x, y, flag, depth, fa_name):
-        N = len(ments)
-        if N % 2 == 1:
-            x_lst = np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1) * 100+depth*50)
-        else:
-            x_lst = np.array(range(-(int(N / 2)), int(N / 2))) * 100 + 50+depth*50
-
-        if flag == 1:
-            y_now = y - 100
-        else:
-            y_now = y + 100
-
-        for x_now, node_now in zip(x_lst, ments):
-            node_now = node_now[0]
-            tmp_node_dic = {}
-            s = db.get_user_info(node_now.user_id)
-            tmp_node_dic["real_name"] = s[4]
-            tmp_node_dic["user_id"] = node_now.user_id
-            tmp_node_dic["x"] = x_now
-            tmp_node_dic["y"] = y_now
-            nodes.append(tmp_node_dic)
-
-            tmp_link_dic = {}
-            if flag == 1:
-                tmp_link_dic["source"] = s[4]
-                tmp_link_dic["target"] = fa_name
+        def recursion(ments, x, y, flag, depth, fa_name):
+            N = len(ments)
+            if N % 2 == 1:
+                x_lst = np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1) )* (100+depth*75)
             else:
-                tmp_link_dic["source"] = fa_name
-                tmp_link_dic["target"] = s[4]
-            links.append(tmp_link_dic)
+                x_lst = np.array(range(-(int(N / 2)), int(N / 2))) * (100+depth*75) + 50
 
-            if depth > 0:
+            if flag == 1:
+                y_now = y - 100
+            else:
+                y_now = y + 100
+
+            for x_now, ment in zip(x_lst, ments):
+                node_now,link_now = ment
+                tmp_node_dic = {}
+                s = db.get_user_info(node_now.user_id)
+                tmp_node_dic["real_name"] = s[4]
+                tmp_node_dic["user_id"] = node_now.user_id
+                tmp_node_dic["x"] = x+int(x_now)
+                tmp_node_dic["y"] = int(y_now)
+                nodes.append(tmp_node_dic)
+
+                tmp_link_dic = {}
                 if flag == 1:
-                    recursion(node_now.mentors, x_now, y_now, flag, depth - 1)
+                    tmp_link_dic["source"] = s[4]
+                    tmp_link_dic["target"] = fa_name
                 else:
-                    recursion(node_now.mentees, x_now, y_now, flag, depth - 1)
+                    tmp_link_dic["source"] = fa_name
+                    tmp_link_dic["target"] = s[4]
+                now_rel=db.get_rel_info(link_now)
+                tmp_link_dic["start_time"]=now_rel["start_time"]
+                tmp_link_dic["end_time"]=now_rel["end_time"]
+                links.append(tmp_link_dic)
 
-    me_x = 500
-    me_y = 300
-    me_dic = {}
-    s = db.get_user_info(me_node.user_id)
-    me_dic["real_name"] = s[4]
-    me_dic["user_id"] = me_node.user_id
-    me_dic["profile_link"] = s[5]
-    me_dic["x"] = me_x
-    me_dic["y"] = me_y
-    nodes.append(me_dic)
+                if depth > 0:
+                    if flag == 1:
+                        recursion(node_now.mentors, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
+                    else:
+                        recursion(node_now.mentees, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
 
-    recursion(me_node.mentors, me_x, me_y, 1, 1, me_dic["real_name"])
-    recursion(me_node.mentees, me_x, me_y, 0, 1, me_dic["real_name"])
+        me_x = 500
+        me_y = 300
+        me_dic = {}
+        s = db.get_user_info(me_node.user_id)
+        me_dic["real_name"] = s[4]
+        me_dic["user_id"] = me_node.user_id
+        me_dic["profile_link"] = s[5]
+        me_dic["x"] = me_x
+        me_dic["y"] = me_y
+        nodes.append(me_dic)
 
-    data = {}
-    data["ndoes"] = nodes
-    data["links"] = links
-    return data
+        recursion(me_node.mentors, me_x, me_y, 1, 1, me_dic["real_name"])
+        recursion(me_node.mentees, me_x, me_y, 0, 1, me_dic["real_name"])
+
+        data = {}
+        data["nodes"] = nodes
+        data["links"] = links
+        return data
+
+    
+    def send(self):
+        data={}
+        data["nodes"]=self.nodes
+        data["links"]=self.links
+        return data
+
+    def refresh(self):
+        pass
+
 
 
 
@@ -136,12 +155,21 @@ def deal_applications():
 
 @app.route('/api/bulid_tree', methods=['POST'])
 def bulid_tree():
+    global tree_id
     data = request.get_json()
     user_node = atree.users[int(data['id'])]
-    tree = atree.locate_nodes(user_node)
-    return jsonify(tree)
+    tree_view=TreeView(user_node)
+    tree_id+=1
+    treeView_dict[tree_id]=tree_view
+    print("FUCK")
+    print(tree_view.send())
+    return jsonify(tree_view.send())
 
-
+@app.route('/api/refreshTreeView',methods=['POST'])
+def refressTreeView():
+    data = request.get_json()
+    treeView_dict[data["tree_id"]].refresh()
+    
 @app.route("/api/get-Allapplications", methods=['POST'])
 def get_Allapplications():
     data = request.get_json()

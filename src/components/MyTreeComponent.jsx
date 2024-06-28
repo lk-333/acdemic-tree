@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,useState } from 'react';
 import * as d3 from './customD3'; // 导入自定义的 d3 模块
 import './MyTreeComponent.css'; // 引入 CSS 文件
 import { useLocation,useNavigate  } from 'react-router-dom';
@@ -8,6 +8,7 @@ const AcademicTree = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const id = queryParams.get('id');
+    const [refreshKey, setRefreshKey] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -111,16 +112,16 @@ const AcademicTree = () => {
             .style('cursor', 'pointer')  // 设置鼠标样式
             .text('+')
             .on('click', (event, d) => {
+                setRefreshKey(prevKey => prevKey + 1);
                 // 在此处添加加号点击事件处理
                 alert(`加号点击: ${d.real_name}`);
                 // 执行你的点击事件逻辑
-                navigate('/create-tree?id='+id);
             });
             
 
         };
         fetchData();
-    },[])
+    },[refreshKey])
 
     return (
         <div className="svg-container" style={{ position: 'relative' }}>
