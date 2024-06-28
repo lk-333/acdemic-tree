@@ -113,7 +113,7 @@ const TeacherSearchPage = () => {
                 {searchResults.length > 0 && (
                 <ul>
                     {searchResults.map((results, index) => (
-                        <li key={index} onClick={() => navigate(`/view-tree?id=${results.user_id}`)}
+                        <li key={index} onClick={() => navigate(`/create-tree?id=${results.user_id}`)}
                         >
                             <p>姓名: {results.real_name}</p>
                             <p>机构: {results.institute}</p>

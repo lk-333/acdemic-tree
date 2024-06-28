@@ -81,7 +81,7 @@ const StudentSearchPage = () => {
                 {searchResults.length > 0 && (
                     <ul>
                         {searchResults.map((result, index) => (
-                            <li key={index} onClick={() => navigate(`/view-tree?id=${result.id}`)}
+                            <li key={index} onClick={() => navigate(`/create-tree?id=${result.id}`)}
                             >
                                 <p>姓名: {result.name}</p>
                                 <p>机构: {result.institution}</p>
