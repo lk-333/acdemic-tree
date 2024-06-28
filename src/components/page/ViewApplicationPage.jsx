@@ -16,7 +16,7 @@ const ViewApplicationsPage = () => {
 
     const fetchApplications = async () => {
         try {
-            const response = await fetch('/get-applications', {
+            const response = await fetch('/api/get-applications', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const ViewApplicationsPage = () => {
 
     const handleDecision = async (result) => {
         try {
-            const response = await fetch('/deal-applications', {
+            const response = await fetch('/api/deal-applications', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

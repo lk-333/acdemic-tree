@@ -61,12 +61,12 @@ class AcdemicTree():
         return 1
 
     def check_user_exists(self, name: str) -> int:
-        query = f"SELECT COUNT(*) FROM user WHERE real_name = '{name}'"
+        query = f"SELECT COUNT(*) FROM user WHERE user_name = '{name}'"
         result = self.db.exec(query)
         if result[0][0] > 0:
-            return 1
+            return False
         else:
-            return 0
+            return True
 
     def add_mentorship(self, mentor_id, mentee_id, start_date=None, end_date=None):
         if start_date == None:

@@ -82,28 +82,28 @@ db = Database()
 atree = AcdemicTree(db=db)
 
 
-@app.route('/check_user', methods=['POST'])
+@app.route('/api/check_user', methods=['POST'])
 def check_user():
     data = request.get_json()
     status = db.check_user(user_name=data["username"], password=data['password'], identity=data['identity'])
     return jsonify({'status': status})
 
 
-@app.route("/register_user", methods=['POST'])
+@app.route("/api/register_user", methods=['POST'])
 def register_user():
     data = request.get_json()
     status = atree.register(user_name=data["username"], password=data['password'], identity=data['identity'])
     return jsonify({'status': status})
 
 
-@app.route("/send-application", methods=['POST'])
+@app.route("/api/send-application", methods=['POST'])
 def send_application():
     data = request.get_json()
     status, s = atree.apply_for_mentorship(applicant_name=data["yourName"], respondent_name=data['otherName'])
     return jsonify({'status': status})
 
 
-@app.route("/update-profile", methods=['POST'])
+@app.route("/api/update-profile", methods=['POST'])
 def update_profile():
     data = request.get_json()
     status, s = atree.update_personal_info(username=data['username'], realName=data['realName'],
@@ -111,21 +111,21 @@ def update_profile():
     return jsonify({'status': status})
 
 
-@app.route("/search_user", methods=['POST'])
+@app.route("/api/search_user", methods=['POST'])
 def search_user():
     data = request.get_json()
     status = atree.check_username_exists(username=data['name'])
     return jsonify({'status': status})
 
 
-@app.route("/get-applications", methods=['POST'])
+@app.route("/api/get-applications", methods=['POST'])
 def get_applications():
     data = request.get_json()
     s = atree.get_processed_applications(username=data['username'])
     return jsonify({'applications': s})
 
 
-@app.route("/deal-applications", methods=['POST'])
+@app.route("/api/deal-applications", methods=['POST'])
 def deal_applications():
     data = request.get_json()
     status, s = atree.process_application(item_id=data['item_id'], result=data['result'])
@@ -134,7 +134,7 @@ def deal_applications():
     return jsonify({'status': status})
 
 
-@app.route('/bulid_tree', methods=['POST'])
+@app.route('/api/bulid_tree', methods=['POST'])
 def bulid_tree():
     data = request.get_json()
     user_node = atree.users[int(data['id'])]
@@ -142,13 +142,13 @@ def bulid_tree():
     return jsonify(tree)
 
 
-@app.route("/get-Allapplications", methods=['POST'])
+@app.route("/api/get-Allapplications", methods=['POST'])
 def get_Allapplications():
     data = request.get_json()
     s = atree.get_Allapplications()
     return jsonify({'applications': s})
 
-@app.route("/fsearch_user", methods=['POST'])
+@app.route("/api/fsearch_user", methods=['POST'])
 def fserch_user():
     data = request.get_json()
 
@@ -156,13 +156,13 @@ def fserch_user():
     print(s)
     return jsonify({'results': s})
 
-@app.route("/userNameExist", methods=['POST'])
-def userNameExist():
+@app.route("/api/userAvailability", methods=['POST'])
+def userAvailability():
     data = request.get_json()
 
-    s = atree.check_user_exists(data['name'])
+    s = atree.check_user_exists(data['username'])
     print(s)
-    return jsonify({'results': s})
+    return jsonify({'isAvailable': s})
 
 if __name__ == "__main__":
     def run():

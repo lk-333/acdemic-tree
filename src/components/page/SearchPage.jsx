@@ -10,7 +10,7 @@ const SearchPage = () => {
     const handleSearch = async () => {
         // 发送请求到后端，你可以使用 fetch 或 axios 发送请求
         try {
-            const response = await fetch('/search_user', {
+            const response = await fetch('/api/search_user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

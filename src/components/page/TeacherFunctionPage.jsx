@@ -45,7 +45,7 @@ const TeacherFunctionPage = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('/send-application', {
+            const response = await fetch('/api/send-application', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ const TeacherFunctionPage = () => {
 
     const handleEditSubmit = async () => {
         try {
-            const response = await fetch('/update-profile', {
+            const response = await fetch('/api/update-profile', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

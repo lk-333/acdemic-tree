@@ -12,7 +12,7 @@ const AcademicTree = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('/bulid_tree',{
+            const response = await fetch('/api/bulid_tree',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

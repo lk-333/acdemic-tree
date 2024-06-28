@@ -19,7 +19,7 @@ const AdminiserSearchPage = () => {
 
         // 发送请求到后端，你可以使用 fetch 或 axios 发送请求
         try {
-            const response = await fetch('/fsearch_user', {
+            const response = await fetch('/api/fsearch_user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

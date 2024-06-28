@@ -2,9 +2,12 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './App';
-import Login from './components/Login';
-import Register from './components/Register'; // 导入 Register 组件
-import './styles.css';
+
+import Login from './components/UserManagement/Login';
+import Register from './components/UserManagement/Register'; 
+import ForgetPassword from './components/UserManagement/ForgetPassword';
+
+// import './styles.css';
 import TeacherFunctionPage from './components/page/TeacherFunctionPage';  // 导入 TeacherFunctionPage 组件
 import MyTreeComponent from "./components/MyTreeComponent";
 import SearchPage from "./components/page/SearchPage";
@@ -39,6 +42,7 @@ root.render(
                 <Route path="/create-tree" element={<MyTreeComponent />} /> {/* 添加 TreePage 路由 */}
                 <Route path="/" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/forget_password" element={<ForgetPassword />} />
                 {/* <Route path="/" element={<App />} /> */}
             </Routes>
         </Router>
