@@ -254,9 +254,9 @@ class AcdemicTree():
         def recursion(ments, x, y, flag, depth, fa_name):
             N = len(ments)
             if N % 2 == 1:
-                x_lst = x + np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1)) * 100
+                x_lst = x + np.array(range(-int((N - 1) / 2), int((N + 1) / 2) + 1)) * 100+100*depth
             else:
-                x_lst = x + np.array(range(-(int(N / 2)), int(N / 2))) * 100 + 50
+                x_lst = x + np.array(range(-(int(N / 2)), int(N / 2))) * 100 + 50+100*depth
 
             if flag == 1:
                 y_now = y - 100

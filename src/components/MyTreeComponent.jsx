@@ -114,11 +114,11 @@ const AcademicTree = () => {
                 // 在此处添加加号点击事件处理
                 alert(`加号点击: ${d.real_name}`);
                 // 执行你的点击事件逻辑
+                navigate('/create-tree?id='+id);
             });
             
 
         };
-
         fetchData();
     },[])
 
