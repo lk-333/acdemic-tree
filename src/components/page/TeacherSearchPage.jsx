@@ -109,7 +109,7 @@ const TeacherSearchPage = () => {
 
             {/*查看表单*/}
 
-            <div className="view-applications-container">
+            <div className="results-container">
                 {searchResults.length > 0 && (
                 <ul>
                     {searchResults.map((results, index) => (

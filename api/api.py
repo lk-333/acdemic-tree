@@ -40,7 +40,7 @@ class TreeView():
                 s = db.get_user_info(node_now.user_id)
                 tmp_node_dic["real_name"] = s[4]
                 tmp_node_dic["user_id"] = node_now.user_id
-                tmp_node_dic["x"] = x+int(x_now)
+                tmp_node_dic["x"] = int(x)+int(x_now)
                 tmp_node_dic["y"] = int(y_now)
                 nodes.append(tmp_node_dic)
 
@@ -58,9 +58,11 @@ class TreeView():
 
                 if depth > 0:
                     if flag == 1:
-                        recursion(node_now.mentors, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
+                        if len(node_now.mentors)>1:
+                            recursion(node_now.mentors, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
                     else:
-                        recursion(node_now.mentees, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
+                        if len(node_now.mentees)>1:
+                            recursion(node_now.mentees, x_now, y_now, flag, depth - 1, tmp_node_dic["real_name"])
 
         me_x = 500
         me_y = 300
@@ -161,7 +163,6 @@ def bulid_tree():
     tree_view=TreeView(user_node)
     tree_id+=1
     treeView_dict[tree_id]=tree_view
-    print("FUCK")
     print(tree_view.send())
     return jsonify(tree_view.send())
 

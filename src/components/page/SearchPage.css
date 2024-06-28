@@ -205,3 +205,29 @@
 .view-applications-container {
     padding: 20px;
 }
+
+.results-container {
+    background-color: rgba(255, 255, 255, 0.9); /* 轻微透明的白色背景 */
+    max-height: 400px; /* 最大高度，超出这个高度会显示滚动条 */
+    overflow-y: auto; /* 显示垂直滚动条 */
+    margin: 20px 0; /* 上下边距 */
+    padding: 15px; /* 内部边距 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    border-radius: 5px; /* 边角圆润 */
+}
+
+.result-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* 每项之间用细线分隔 */
+    cursor: pointer; /* 鼠标悬停时显示手指图标，表示可点击 */
+}
+
+.result-item:last-child {
+    border-bottom: none; /* 最后一项不显示底部边线 */
+}
+
+.result-item:hover {
+    background-color: #f0f0f0; /* 悬停时背景色改变，提高交互性 */
+}
+
+
