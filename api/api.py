@@ -74,18 +74,10 @@ def locate_nodes(me_node: Node):
     return data
 
 
-def back():
-    while True:
-        time.sleep(1000)
-
-
-def run_back_thread():
-    th = threading.Thread(target=back, )
-    th.start()
-    return th
 
 
 app = Flask(__name__)
+CORS(app)
 db = Database()
 atree = AcdemicTree(db=db)
 
@@ -176,7 +168,5 @@ if __name__ == "__main__":
     def run():
         app.run(debug=True)
 
-
     run()
-    back_thread = run_back_thread()
 
