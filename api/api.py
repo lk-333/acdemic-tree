@@ -83,7 +83,7 @@ class TreeView():
         data["links"] = links
         return data
 
-    
+
     def send(self):
         data={}
         data["nodes"]=self.nodes

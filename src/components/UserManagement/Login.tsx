@@ -39,7 +39,7 @@ const Login = () => {
                         navigate('/search-tree-teacher', { state: { Username } });
                         break;
                     case 'admin':
-                        navigate('/admin-dashboard', { state: { Username } });
+                        navigate('search-tree-administer', { state: { Username } });
                         break;
                     default:
                         navigate('/');

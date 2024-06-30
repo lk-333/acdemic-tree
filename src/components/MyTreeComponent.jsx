@@ -97,7 +97,7 @@ const AcademicTree = () => {
                         navigate(`/create-tree?id=222`);
                     }
                 });
-            
+
             // 添加加号
             svg.append('g')
             .selectAll('text')
@@ -114,10 +114,10 @@ const AcademicTree = () => {
             .on('click', (event, d) => {
                 setRefreshKey(prevKey => prevKey + 1);
                 // 在此处添加加号点击事件处理
-                alert(`加号点击: ${d.real_name}`);
+                // alert(`加号点击: ${d.real_name}`);
                 // 执行你的点击事件逻辑
             });
-            
+
 
         };
         fetchData();
